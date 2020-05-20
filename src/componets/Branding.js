@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import Badge from "react-bootstrap/Badge";
 class Branding extends Component {
   render() {
     return (
-      <div className="container">
-        <Badge variant="success">Mlang Playground</Badge>
+      <div className="banner">
+        <h2>The M Playground</h2>
       </div>
     );
   }

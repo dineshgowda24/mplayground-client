@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 //import brace from "brace";
 import AceEditor from "react-ace";
-import "brace/mode/golang";
-import "brace/theme/monokai";
+import "brace/mode/javascript";
+import "brace/theme/tomorrow_night";
 
 const editorStyle = {
     border: '1px solid lightgray',
   };
 class CodeEditor extends Component {
   render() {
-    let code = `let x = "This is the Mlang"`;
     return (
       <div>
         <AceEditor
@@ -18,9 +17,9 @@ class CodeEditor extends Component {
            width="100%"
            height="300px"
            mode="javascript"
-           theme="monokai"
+           theme="tomorrow_night"
            name="aceCodeEditor"
-           fontSize={14}
+           fontSize={17}
            showPrintMargin
            onChange={this.props.onChange}
            showGutter

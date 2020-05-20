@@ -32,7 +32,7 @@ class Editor extends Component {
   }
   render() {
     return (
-      <div className="container">
+      <div>
         <Form className="form-horizontal">
           <FormGroup>
             <Col sm={12} controlId="code">
@@ -46,7 +46,7 @@ class Editor extends Component {
                 type="button"
                 onClick={this.compileHandler}
               >
-                Execute
+                Run
               </Button>
             </Col>
           </FormGroup>

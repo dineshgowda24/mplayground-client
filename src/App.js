@@ -6,7 +6,7 @@ import Branding from "./componets/Branding"
 
 function App() {
   return (
-    <div >
+    <div className="container">
       <Branding />
       <Editor/>
     </div>
