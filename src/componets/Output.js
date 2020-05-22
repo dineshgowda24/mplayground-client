@@ -16,6 +16,7 @@ class OutputBox extends React.Component {
           type="textarea"
           componentClass="textarea"
           rows="10"
+          width="50%"
           readOnly
           value={this.props.message}
         />
@@ -29,6 +30,7 @@ class OutputBox extends React.Component {
         componentClass="textarea"
         rows="10"
         readOnly
+        width="50%"
         value=""
       />
     );

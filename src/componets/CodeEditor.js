@@ -14,7 +14,7 @@ class CodeEditor extends Component {
         <AceEditor
            style={editorStyle}
            readOnly={false}
-           width="100%"
+           width="50%"
            height="300px"
            mode="javascript"
            theme="tomorrow_night"

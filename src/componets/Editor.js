@@ -1,16 +1,28 @@
 import React, { Component } from "react";
 import CodeEditor from "./CodeEditor";
 import Output from "./Output";
-import { Button, Form, FormGroup, Col } from "react-bootstrap";
+import { Form, FormGroup, Col } from "react-bootstrap";
+import { Button } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 class Editor extends Component {
   constructor() {
     super();
     this.state = {
-      code: `"let x = "m the language of bots"`,
+      code: `let x = "M the language of bots"`,
       response: {
         status: 0,
         result: "",
+        //need to check on type handline
+        variabledefs: {
+          next_block: "",
+          current_time: "",
+          current_year: "",
+          name: "",
+          email: "",
+        },
       },
     };
     this.compileHandler = this.compileHandler.bind(this);
@@ -25,29 +37,43 @@ class Editor extends Component {
   }
 
   handleCodeChange(newcode) {
-    let code  = this.state;
+    let code = this.state;
     code = newcode;
     console.log(code);
     return this.setState({ code });
   }
+
+  handleAddVariable() {}
+
+  handleRemoveVariable() {}
+
   render() {
     return (
       <div>
         <Form className="form-horizontal">
-          <FormGroup>
-            <Col sm={12} controlId="code">
-              <CodeEditor onChange={this.handleCodeChange} code={this.state.code}/>
+          <FormGroup controlId="code">
+            <Col sm={12}>
+              <CodeEditor
+                onChange={this.handleCodeChange}
+                code={this.state.code}
+              />
             </Col>
           </FormGroup>
-          <FormGroup>
+          <FormGroup controlId="code">
             <Col sm={12}>
               <Button
-                bsStyle="primary"
-                type="button"
-                onClick={this.compileHandler}
-              >
+                variant="contained"
+                color="primary"
+                onClick={this.compileHandler}>
                 Run
               </Button>
+              <Button
+        variant="contained"
+        color="secondary"
+        startIcon={<DeleteIcon />}
+      >
+        Run
+      </Button>
             </Col>
           </FormGroup>
           <FormGroup>
