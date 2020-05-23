@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import CodeEditor from "./CodeEditor";
 import Output from "./Output";
-import { Form, FormGroup, Col } from "react-bootstrap";
-import { Button } from "@material-ui/core";
+import { Col, Row, Tabs, Tab } from "react-bootstrap";
 import AddVariable from "./AddVariable";
 import VariableList from "./VariableList";
+import Branding from "./Branding";
 class Editor extends Component {
   constructor() {
     super();
@@ -19,6 +19,7 @@ class Editor extends Component {
       },
       //defines a list of variables which were added
       variabledefs: [],
+      navactive :"eval"
     };
     this.handleRunEvent = this.handleRunEvent.bind(this);
     this.handleCodeChangeEvent = this.handleCodeChangeEvent.bind(this);
@@ -28,6 +29,9 @@ class Editor extends Component {
   handleRunEvent(event) {
     event.preventDefault();
     const { code } = this.state;
+    this.setState({
+      navactive : "variables"
+    })
     console.log(code);
     //need to write api to hit go backend and update the state
   }
@@ -40,9 +44,10 @@ class Editor extends Component {
   }
 
   handleAddVariableEvent(variable) {
+    //Todo write code to handle duplicate values of variables
     this.setState({
-      variabledefs: [...this.state.variabledefs, variable]
-    })
+      variabledefs: [...this.state.variabledefs, variable],
+    });
   }
 
   handleRemoveVariable() {}
@@ -50,39 +55,28 @@ class Editor extends Component {
   render() {
     return (
       <div>
-        <Form className="form-horizontal">
-          <FormGroup controlId="code">
-            <Col sm={12}>
-              <CodeEditor
-                onChange={this.handleCodeChangeEvent}
-                code={this.state.code}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="code">
-            <Col sm={12}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={this.handleRunEvent}
-              >
-                Run
-              </Button>
-            </Col>
-          </FormGroup>
-          <FormGroup>
-            <Col sm={12}>
-              <Output
-                show={this.state.response.status === "0"}
-                message={this.state.response.result}
-              />
-            </Col>
-          </FormGroup>
-        </Form>
-        <Form>
-          <AddVariable addVariableHandler={this.handleAddVariableEvent} />
-          <VariableList data={this.state.variabledefs} />
-        </Form>
+        <Branding handleClickEvent={this.handleRunEvent} />
+        <Row>
+          <Col>
+            <CodeEditor
+              onChange={this.handleCodeChangeEvent}
+              code={this.state.code}
+            />
+            {/* <Output
+              show={this.state.response.status === "0"}
+              message={this.state.response.result}
+            /> */}
+          </Col>
+          <Col>
+            <Tabs defaultActiveKey={this.state.navactive} id="uncontrolled-tab-example">
+              <Tab eventKey="variables" title="Variables">
+                <AddVariable addVariableHandler={this.handleAddVariableEvent} />
+                <VariableList data={this.state.variabledefs} />
+              </Tab>
+              <Tab eventKey="eval" title="Eval"></Tab>
+            </Tabs>
+          </Col>
+        </Row>
       </div>
     );
   }

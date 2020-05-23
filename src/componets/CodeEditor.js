@@ -3,20 +3,15 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
-
-const editorStyle = {
-    border: '1px solid lightgray',
-    'font-family': 'Fira Code'
-};
+import * as AppConstants from"./Constants"
 class CodeEditor extends Component {
   render() {
     return (
       <div>
         <AceEditor
-           style={editorStyle}
+           style={AppConstants.aceEditorStyle}
            readOnly={false}
-           width="50%"
-           height="300px"
+           //height="300px"
            mode="javascript"
            theme="tomorrow_night"
            name="aceCodeEditor"

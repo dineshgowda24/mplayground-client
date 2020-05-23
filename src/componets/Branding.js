@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { Navbar, Button} from "react-bootstrap";
 class Branding extends Component {
   render() {
     return (
-      <div className="banner">
-        <h2>The M Playground</h2>
-      </div>
+      <Navbar bg="light" variant="light">
+        <Navbar.Brand>The M Playground</Navbar.Brand>
+        <Button variant="outline-info" onClick={this.props.handleClickEvent}>M It!</Button>
+      </Navbar>
     );
   }
 }

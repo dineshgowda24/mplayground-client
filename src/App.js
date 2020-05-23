@@ -1,12 +1,12 @@
 import React from "react";
 import Editor from "./componets/Editor";
 import Branding from "./componets/Branding";
-
+import './App.css'
 
 function App() {
   return (
-    <div className="container-fluid">
-      <Branding />
+    <div >
+      {/* <Branding /> */}
       <Editor />
     </div>
   );

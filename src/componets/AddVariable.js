@@ -1,45 +1,38 @@
-import { Form } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import React, { Component } from "react";
 
 //need to take this list dynamically
 const variableTypes = ["int", "bool", "string"];
 class AddVariable extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      selectedVariable: "int",
+      vartype: "int",
     };
     this.handleListChange = this.handleListChange.bind(this);
   }
 
   handleListChange = (event) => {
     this.setState({
-      selectedVariable: event.target.value,
+      [event.target.name]: event.target.value,
     });
     console.log(event.target.value);
+    console.log(event.target.name);
   };
 
   addVariableHandler = (event) => {
     event.preventDefault();
-    console.log(this.refs.name.value);
-    console.log(this.refs.value.value);
-    console.log(this.refs.variabletype.value);
-    let name = this.refs.name.value;
-    let value = this.refs.value.value;
-    let type = this.refs.variabletype.value;
-    this.refs.name.value = "";
-    this.refs.value.value = "";
-    this.refs.variabletype.value = "int";
+    let { name, vartype, value } = this.state;
+    console.log(name);
+    console.log(vartype);
+    console.log(value);
     if (
       name !== "" &&
       value !== "" &&
-      (type !== "int" || type !== "string" || type !== "bool")
+      (vartype !== "int" || vartype !== "string" || vartype !== "bool")
     ) {
-      let variable = {
-        name: name,
-        value: value,
-        type: type,
-      };
+      let variable = { name: name, type: vartype, value: value };
+      console.log(variable);
       this.props.addVariableHandler(variable);
     }
   };
@@ -50,20 +43,44 @@ class AddVariable extends Component {
     return (
       <div>
         <Form>
-          <select
-            id="variable"
-            name="variabletype"
-            ref="variabletype"
-            value={this.state.selectedVariable}
-            onChange={this.handleListChange}
-          >
-            {listItems}
-          </select>
-          <input name="name" ref="name"></input>
-          <input name="value" ref="value"></input>
-          <button type="submit" onClick={this.addVariableHandler}>
-            Add
-          </button>
+          <Row>
+            <Col>
+              <Form.Group controlId="exampleForm.SelectCustomSizeSm">
+                <Form.Control
+                  as="select"
+                  custom
+                  onChange={this.handleListChange}
+                  inline
+                  name="vartype"
+                >
+                  {listItems}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Control
+                inline
+                placeholder="name"
+                ref="name"
+                name="name"
+                onChange={this.handleListChange}
+              />
+            </Col>
+            <Col>
+              <Form.Control
+                inline
+                placeholder="value"
+                ref="value"
+                name="value"
+                onChange={this.handleListChange}
+              />
+            </Col>
+            <Col>
+              <Button variant="outline-info" onClick={this.addVariableHandler}>
+                Add
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </div>
     );

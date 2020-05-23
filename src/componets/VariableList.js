@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-const data = [{ name: "next_block", type: "int", value: "test_block" }];
 class VariableList extends Component {
   render() {
     //Todo validate array elements before reading values
@@ -11,9 +10,9 @@ class VariableList extends Component {
               //how to set the key here our variables can be removed
               this.props.data.map((variable, i) => (
                   <tr key={i}>
-                    <td>{variable.name}</td>
-                    <td>{variable.type}</td>
-                    <td>{variable.value}</td>
+                    <td><span className="badge badge-dark">{variable.name} <span class="badge badge-light">{variable.value}</span></span></td>
+                    <td><span className="badge badge-dark">{variable.type}</span></td>
+                    <td><span className="badge badge-dark">{variable.value}</span></td>
                   </tr>
               ))
             }
