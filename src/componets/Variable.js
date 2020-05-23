@@ -9,7 +9,7 @@ class Variable extends Component {
         varColor = "red";
         break;
       case "string":
-        varColor = "green";
+        varColor = "gresen";
         break;
       case "bool":
         varColor = "orange";

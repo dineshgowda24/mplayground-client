@@ -3,10 +3,8 @@ import CodeEditor from "./CodeEditor";
 import Output from "./Output";
 import { Form, FormGroup, Col } from "react-bootstrap";
 import { Button } from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
-
-
-
+import AddVariable from "./AddVariable";
+import VariableList from "./VariableList";
 class Editor extends Component {
   constructor() {
     super();
@@ -14,36 +12,38 @@ class Editor extends Component {
       code: `let x = "M the language of bots"`,
       response: {
         status: 0,
-        result: "",
-        //need to check on type handline
-        variabledefs: {
-          next_block: "",
-          current_time: "",
-          current_year: "",
-          name: "",
-          email: "",
-        },
+        //result will hold variables which were overridden from the code
+        result: [],
+        stdout: "",
+        stderr: "",
       },
+      //defines a list of variables which were added
+      variabledefs: [],
     };
-    this.compileHandler = this.compileHandler.bind(this);
-    this.handleCodeChange = this.handleCodeChange.bind(this);
+    this.handleRunEvent = this.handleRunEvent.bind(this);
+    this.handleCodeChangeEvent = this.handleCodeChangeEvent.bind(this);
+    this.handleAddVariableEvent = this.handleAddVariableEvent.bind(this);
   }
 
-  compileHandler(event) {
+  handleRunEvent(event) {
     event.preventDefault();
     const { code } = this.state;
     console.log(code);
     //need to write api to hit go backend and update the state
   }
 
-  handleCodeChange(newcode) {
+  handleCodeChangeEvent(newcode) {
     let code = this.state;
     code = newcode;
     console.log(code);
     return this.setState({ code });
   }
 
-  handleAddVariable() {}
+  handleAddVariableEvent(variable) {
+    this.setState({
+      variabledefs: [...this.state.variabledefs, variable]
+    })
+  }
 
   handleRemoveVariable() {}
 
@@ -54,7 +54,7 @@ class Editor extends Component {
           <FormGroup controlId="code">
             <Col sm={12}>
               <CodeEditor
-                onChange={this.handleCodeChange}
+                onChange={this.handleCodeChangeEvent}
                 code={this.state.code}
               />
             </Col>
@@ -64,16 +64,10 @@ class Editor extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={this.compileHandler}>
+                onClick={this.handleRunEvent}
+              >
                 Run
               </Button>
-              <Button
-        variant="contained"
-        color="secondary"
-        startIcon={<DeleteIcon />}
-      >
-        Run
-      </Button>
             </Col>
           </FormGroup>
           <FormGroup>
@@ -84,6 +78,10 @@ class Editor extends Component {
               />
             </Col>
           </FormGroup>
+        </Form>
+        <Form>
+          <AddVariable addVariableHandler={this.handleAddVariableEvent} />
+          <VariableList data={this.state.variabledefs} />
         </Form>
       </div>
     );

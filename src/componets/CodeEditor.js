@@ -6,7 +6,8 @@ import "brace/theme/tomorrow_night";
 
 const editorStyle = {
     border: '1px solid lightgray',
-  };
+    'font-family': 'Fira Code'
+};
 class CodeEditor extends Component {
   render() {
     return (
