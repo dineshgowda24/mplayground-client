@@ -63,6 +63,7 @@ class AddVariable extends Component {
                 placeholder="name"
                 ref="name"
                 name="name"
+                required="required"
                 onChange={this.handleListChange}
               />
             </Col>
@@ -72,6 +73,7 @@ class AddVariable extends Component {
                 placeholder="value"
                 ref="value"
                 name="value"
+                required="required"
                 onChange={this.handleListChange}
               />
             </Col>

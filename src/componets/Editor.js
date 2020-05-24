@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CodeEditor from "./CodeEditor";
-import Output from "./Output";
+import Eval from "./Eval";
 import { Col, Row, Tabs, Tab } from "react-bootstrap";
 import AddVariable from "./AddVariable";
 import VariableList from "./VariableList";
@@ -53,6 +53,9 @@ class Editor extends Component {
     //Todo write code to handle duplicate values of variables
     this.setState({
       variabledefs: [...this.state.variabledefs, variable],
+      //Todo need to remove this
+      result: [...this.state.variabledefs, variable],
+      stdout: "test",
     });
   }
 
@@ -72,10 +75,6 @@ class Editor extends Component {
               onChange={this.handleCodeChangeEvent}
               code={this.state.code}
             />
-            {/* <Output
-              show={this.state.response.status === "0"}
-              message={this.state.response.result}
-            /> */}
           </Col>
           <Col className="noPadding">
             <Tabs
@@ -100,7 +99,11 @@ class Editor extends Component {
                     <FiTerminal /> Eval
                   </div>
                 }
-              ></Tab>
+              >
+                <Eval stdout={this.state.stdout} stderr={this.state.stderr}/>
+                {/* Need to set the result variables from api here */}
+                <VariableList data={this.state.result} />
+              </Tab>
             </Tabs>
           </Col>
         </Row>
