@@ -5,6 +5,9 @@ import { Col, Row, Tabs, Tab } from "react-bootstrap";
 import AddVariable from "./AddVariable";
 import VariableList from "./VariableList";
 import Branding from "./Branding";
+import { AiFillContainer } from "react-icons/ai";
+import { FiTerminal } from "react-icons/fi";
+import "../App.css";
 class Editor extends Component {
   constructor() {
     super();
@@ -19,19 +22,22 @@ class Editor extends Component {
       },
       //defines a list of variables which were added
       variabledefs: [],
-      navactive :"eval"
+      navactive: 0,
     };
     this.handleRunEvent = this.handleRunEvent.bind(this);
     this.handleCodeChangeEvent = this.handleCodeChangeEvent.bind(this);
     this.handleAddVariableEvent = this.handleAddVariableEvent.bind(this);
+    this.handleTabClickEvent = this.handleTabClickEvent.bind(this);
   }
 
-  handleRunEvent(event) {
-    event.preventDefault();
+  handleRunEvent() {
     const { code } = this.state;
-    this.setState({
-      navactive : "variables"
-    })
+    this.setState(
+      {
+        navactive: 1,
+      },
+      console.log(this.state.navactive)
+    );
     console.log(code);
     //need to write api to hit go backend and update the state
   }
@@ -52,12 +58,16 @@ class Editor extends Component {
 
   handleRemoveVariable() {}
 
+  handleTabClickEvent(key) {
+    console.log(key);
+    this.setState({ navactive: key });
+  }
   render() {
     return (
       <div>
         <Branding handleClickEvent={this.handleRunEvent} />
         <Row>
-          <Col>
+          <Col className="noPadding" colSize={8}>
             <CodeEditor
               onChange={this.handleCodeChangeEvent}
               code={this.state.code}
@@ -67,13 +77,30 @@ class Editor extends Component {
               message={this.state.response.result}
             /> */}
           </Col>
-          <Col>
-            <Tabs defaultActiveKey={this.state.navactive} id="uncontrolled-tab-example">
-              <Tab eventKey="variables" title="Variables">
+          <Col className="noPadding">
+            <Tabs
+              activeKey={this.state.navactive}
+              onSelect={this.handleTabClickEvent}
+            >
+              <Tab
+                eventKey={0}
+                title={
+                  <div>
+                    <AiFillContainer /> Variables
+                  </div>
+                }
+              >
                 <AddVariable addVariableHandler={this.handleAddVariableEvent} />
                 <VariableList data={this.state.variabledefs} />
               </Tab>
-              <Tab eventKey="eval" title="Eval"></Tab>
+              <Tab
+                eventKey={1}
+                title={
+                  <div>
+                    <FiTerminal /> Eval
+                  </div>
+                }
+              ></Tab>
             </Tabs>
           </Col>
         </Row>
