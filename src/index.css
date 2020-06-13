@@ -12,9 +12,9 @@ code {
     font-family: 'Fira Code', monospace;
 }
 
-/* .form-control {
-  width: 50% !important;
-} */
+.table-responsive {
+ max-height: 400px;
+}
 
 td{
   padding: 3px;
